@@ -1,0 +1,19 @@
+    <% include header %>
+        <% include bodytop %>
+        <!--
+            <section class="hero-call-to-action clearfix">
+                <h1>Marketing blurbs...</h1>
+            </section>
+            -->
+            <section id="sign-up-form clearfix">
+                <h2>SIGN UP</h2>
+                <form action="/register" method="POST">
+                    <input class="fullname clearfix" type="text" name="fullname" placeholder="Full name"><br>
+                    <input class="email clearfix" type="email" name="email" placeholder="Email"><br>
+                    <input class="password clearfix" type="password" name="password" placeholder="Password"><br>
+                    <input class="agrees" type="checkbox" name="agree" value="agrees">I agree to <a href="/path/to/tos">Terms of Service</a><br>
+                    <button type="submit" class="button button-rounded button-primary"/>Sign me up!</button> <span>or</span> <a href="/login">Log in</a>
+                </form>
+            </section>
+        </div>
+    <% include footer %>
