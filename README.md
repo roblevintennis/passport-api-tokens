@@ -31,6 +31,8 @@ This is an adaptation of Michael Herman's http://mherman.org/blog/2013/11/11/use
 3. get an API token
 4. make subsequent ajax http requests to your REST API using the token
 
+So I rewrote from scratch :)
+
 Disclaimer
 ==========
 
@@ -46,5 +48,5 @@ References
 Contributing
 ============
 
-github "Fork and Pull Request" model
+github "fork and pull request" model
 
