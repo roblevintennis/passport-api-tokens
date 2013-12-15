@@ -1,0 +1,20 @@
+/* line 7, ../scss/site.scss */
+body {
+  margin: 0px;
+  padding: 0px;
+}
+
+/* line 12, ../scss/site.scss */
+.success {
+  color: green;
+}
+
+/* line 13, ../scss/site.scss */
+.error {
+  color: red;
+}
+
+/* line 15, ../scss/site.scss */
+.form {
+  background: #EEE;
+}

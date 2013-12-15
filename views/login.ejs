@@ -1,13 +1,16 @@
 <% include header %>
-    <% include bodytop %>
-        <section id="sign-up-form clearfix">
+    <% include alert %>
+
+    <div class="grid-fluid">
+
+        <form action="javascript:void(0)" method="POST" id="sign-up-form" class="c4 a4 b4 form">
             <h2>Login</h2>
-            <form action="javascript:void(0)" method="POST">
                 <input class="email clearfix" type="email" name="email" placeholder="Email"><br>
                 <input class="password clearfix" type="password" name="password" placeholder="Password"><br>
                 <button type="submit" class="button button-rounded button-primary"/>Log me in!</button> <span>or</span> <a href="/register">Sign up</a><br>
                 <button class="testToken" type="button">Test Token</button>
-            </form>
-        </section>
+        </form>
+
     </div>
+
 <% include footer %>
