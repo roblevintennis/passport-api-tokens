@@ -1,7 +1,8 @@
 var mongoose = require('mongoose'),
     _ = require('underscore')._,
     Schema = mongoose.Schema,
-    config = require('../config/config.js');
+    path = require('path'),
+    config = require(path.join(__dirname, '..', '/config/config.js')),
     passportLocalMongoose = require('passport-local-mongoose'),
     jwt = require('jwt-simple'),
     tokenSecret = 'put-a-$Ecr3t-h3re';

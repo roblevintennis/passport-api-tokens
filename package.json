@@ -1,7 +1,7 @@
 {
   "name": "node-api-token-template",
   "version": "0.0.1",
-  "description": "A template for express, NodeJS and twitter bootstrap 3 using API Tokens",
+  "description": "A template for express, NodeJS, passport, and jwt-simple using API Tokens",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:mjhea0/node-bootstrap3-template.git"
+    "url": "git@github.com:roblevintennis/passport-api-tokens.git"
   },
   "keywords": [
     "nodejs",

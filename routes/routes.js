@@ -1,6 +1,7 @@
-// var passport = require('passport');
-var Account = require('../models/account');
-var flash = require('../include/utils').flash;
+var path = require('path'),
+    config = require(path.join(__dirname, '..', '/config/config.js')),
+    Account = require(path.join(__dirname, '..', '/models/account')),
+    flash = require(path.join(__dirname, '..', '/include/utils')).flash;
 
 module.exports = function (app, passport) {
 
