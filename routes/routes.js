@@ -84,6 +84,42 @@ module.exports = function (app, passport) {
         res.redirect('/');
     });
 
+    app.get('/forgot', function(req, res) {
+        res.render('forgot');
+    });
+
+    app.post('/forgot', function(req, res) {
+
+        Account.generateResetToken(req.body.email, function(err, user) {
+            if (err) {
+                res.json({error: 'Issue finding user.'});
+            } else {
+                var token = user.reset_token;
+                var resetLink = 'http://localhost:1337/reset/'+ token;
+
+                //TODO: This is all temporary hackish. When we have email configured
+                //properly, all this will be stuffed within that email instead :)
+                res.send('<h2>Reset Email (simulation)</h2><br><p>To reset your password click the URL below.</p><br>' +
+                '<a href=' + resetLink + '>' + resetLink + '</a><br>' +
+                'If you did not request your password to be reset please ignore this email and your password will stay as it is.');
+            }
+        });
+    });
+
+    app.get('/reset/:id', function(req, res) {
+        var token = req.params.id;
+        if (!token) {
+            console.log("Issue getting reset :id");
+            //TODO: Error response...
+        } else {
+            //TODO
+            //
+            //1. find user with reset_token == token .. no match THEN error
+            //2. check now.getTime() < reset_link_expires_millis
+            //3. if not expired, present reset password page/form
+        }
+    });
+
     app.get('/ping', function(req, res){
         res.send("pong!", 200);
     });

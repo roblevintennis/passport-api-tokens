@@ -4,6 +4,7 @@ var mongoose = require('mongoose'),
     path = require('path'),
     config = require(path.join(__dirname, '..', '/config/config.js')),
     passportLocalMongoose = require('passport-local-mongoose'),
+    crypto = require('crypto');
     jwt = require('jwt-simple'),
     tokenSecret = 'put-a-$Ecr3t-h3re';
 
@@ -23,7 +24,10 @@ var Account = new Schema({
     email: { type: String, required: true, lowercase:true, index: { unique: true } },
     full_name: {type: String, required: true},//TODO: break out first / last names
     date_created: {type: Date, default: Date.now},
-    token: {type: Object}
+    token: {type: Object},
+    //For reset we use a reset token with an expiry (which must be checked)
+    reset_token: {type: String},
+    reset_token_expires_millis: {type: Number}
 });
 Account.plugin(passportLocalMongoose, {usernameField: 'email'});
 
@@ -45,6 +49,17 @@ Account.statics.findUser = function(email, token, cb) {
         }
     });
 };
+
+Account.statics.findUserByEmailOnly = function(email, cb) {
+    var self = this;
+    this.findOne({email: email}, function(err, usr) {
+        if(err || !usr) {
+            cb(err, null);
+        } else {
+            cb(false, usr);
+        }
+    });
+};
 Account.statics.createUserToken = function(email, cb) {
     var self = this;
     this.findOne({email: email}, function(err, usr) {
@@ -53,9 +68,7 @@ Account.statics.createUserToken = function(email, cb) {
         }
         //Create a token and add to user and save
         var token = self.encode({email: email});
-        console.log('encode token: ' + token);
         usr.token = new TokenModel({token:token});
-        console.log('usr.token: ' + usr.token);
         usr.save(function(err, usr) {
             if (err) {
                 cb(err, null);
@@ -64,6 +77,23 @@ Account.statics.createUserToken = function(email, cb) {
                 cb(false, usr.token.token);//token object, in turn, has a token property :)
             }
         });
+    });
+};
+
+Account.statics.generateResetToken = function(email, cb) {
+    console.log("in generateResetToken....");
+    this.findUserByEmailOnly(email, function(err, user) {
+        if (err) {
+            cb(err, null);
+        } else {
+            //Generate reset token and URL link; also, create expiry for reset token
+            user.reset_token = require('crypto').randomBytes(32).toString('hex');
+            var now = new Date();
+            var expires = new Date(now.getTime() + (config.resetTokenExpiresMinutes * 60 * 1000)).getTime();
+            user.reset_token_expires_millis = expires;
+            user.save();
+            cb(false, user);
+        }
     });
 };
 
