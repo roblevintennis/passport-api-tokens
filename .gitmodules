@@ -1,0 +1,6 @@
+[submodule "public/vendor/buttons"]
+	path = public/vendor/buttons
+	url = git@github.com:alexwolfe/Buttons.git
+[submodule "public/vendor/grids"]
+	path = public/vendor/grids
+	url = git@github.com:alexwolfe/Grids.git
