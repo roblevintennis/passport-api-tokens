@@ -122,8 +122,4 @@ module.exports = function (app, passport) {
             res.render('resetpass');
         }
     });
-
-    app.get('/ping', function(req, res){
-        res.send("pong!", 200);
-    });
 };
