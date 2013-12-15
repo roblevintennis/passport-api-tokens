@@ -5,8 +5,8 @@
 Install
 =======
 
-    git clone <REPO>
-    cd passport-jwt
+    git clone git@github.com:roblevintennis/passport-api-tokens.git
+    cd passport-api-tokens
     npm install
     git submodule init && git submodule update
     npm install -g mongodb
