@@ -2,16 +2,23 @@
     <% include alert %>
 
     <div class="grid-fluid">
-
         <form action="javascript:void(0)" method="POST" id="sign-up-form" class="c4 a4 b4 form">
             <h2>Login</h2>
-                <input class="email clearfix" type="email" name="email" placeholder="Email"><br>
-                <input class="password clearfix" type="password" name="password" placeholder="Password"><br>
-                <a class="forgot" href="/forgot">Forgot password?</a><br>
-                <button type="submit" class="button button-rounded button-primary"/>Log me in!</button> <span>or</span> <a href="/register">Sign up</a><br>
-                <button class="testToken" type="button">Test Token</button>
+                <div class="form-field-group">
+                    <input class="email form-field clearfix" type="email" name="email" placeholder="Email">
+                </div>
+                <div class="form-field-group">
+                    <input class="password form-field clearfix" type="password" name="password" placeholder="Password">
+                </div>
+                <div class="form-field-group">
+                    <a class="forgot form-field" href="/forgot">Forgot password?</a>
+                </div>
+                <div class="form-field-group">
+                    <input class="form-checkbox form-field" type="checkbox" name="agree" value="agrees">Test <a href="">Checkbox (temp)</a><br>
+                    <button type="submit" class="button button-rounded button-primary"/>Log me in!</button> <span>or</span> <a href="/register">Sign up</a>
+                    <button class="testToken button button-rounded button-secondary" type="button">Test Token</button>
+                </div>
         </form>
-
     </div>
 
 <% include footer %>
