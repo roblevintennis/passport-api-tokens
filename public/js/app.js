@@ -24,7 +24,8 @@ $('document').ready(function() {
     /////////////////////////////////////////////////////////////////
     // AUTH TOKEN ///////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////
-    $('button[type="submit"]').on("click", function(e) {
+    // $('button[type="submit"]').on("click", function(e) {
+    $('#login').on("click", function(e) {
         var email = $('.email').val();
         var password = $('.password').val();
         $.ajax({
