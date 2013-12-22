@@ -1,0 +1,8 @@
+/* line 10, ../scss/typography.scss */
+body {
+  font-size: 14px;
+  line-height: 24px;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+  color: #333333;
+}
