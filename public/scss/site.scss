@@ -5,6 +5,11 @@
 // GENERAL ///////////////////////////////////////////////
 //////////////////////////////////////////////////////////
 body {
+    background: url(../images/alps-blur.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
     margin: 0px;
     padding: 0px;
 }
@@ -13,7 +18,9 @@ body {
 .error {color: red;}
 
 .form {
-    background: #EEE;
+    @include opacity(.9);
+    background: #FFF;
     padding: 14px 24px;
-    margin-top: 75px;
+    margin: 80px 0px 40px 0px;
+
 }

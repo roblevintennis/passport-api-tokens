@@ -6,10 +6,6 @@ var path = require('path'),
 module.exports = function (app, passport) {
 
     app.get('/', function (req, res) {
-        res.render('index');
-    });
-
-    app.get('/register', function(req, res) {
         res.render('register', {info: null, err: null});
     });
 

@@ -7,3 +7,6 @@
 [submodule "public/vendor/forms"]
 	path = public/vendor/forms
 	url = git@github.com:alexwolfe/Forms.git
+[submodule "public/vendor/typography"]
+	path = public/vendor/typography
+	url = git@github.com:alexwolfe/Typography.git

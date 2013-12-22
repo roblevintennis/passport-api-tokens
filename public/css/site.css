@@ -1,22 +1,29 @@
 /* line 7, ../scss/site.scss */
 body {
+  background: url(../images/alps-blur.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   margin: 0px;
   padding: 0px;
 }
 
-/* line 12, ../scss/site.scss */
+/* line 17, ../scss/site.scss */
 .success {
   color: green;
 }
 
-/* line 13, ../scss/site.scss */
+/* line 18, ../scss/site.scss */
 .error {
   color: red;
 }
 
-/* line 15, ../scss/site.scss */
+/* line 20, ../scss/site.scss */
 .form {
-  background: #EEE;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
+  opacity: 0.9;
+  background: #FFF;
   padding: 14px 24px;
-  margin-top: 75px;
+  margin: 80px 0px 40px 0px;
 }

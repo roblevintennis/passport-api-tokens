@@ -3,24 +3,29 @@
 
             <section id="sign-up-form clearfix">
                 <div class="grid-fluid">
-                    <form action="/register" method="POST" class="c4 a4 b4 form">
-                        <h2>SIGN UP</h2>
-                        <div class="form-field-group">
-                            <input class="fullname clearfix" type="text" name="fullname" placeholder="Full name"><br>
-                        </div>
-                        <div class="form-field-group">
-                            <input class="email clearfix" type="email" name="email" placeholder="Email"><br>
-                        </div>
-                        <div class="form-field-group">
-                            <input class="password clearfix" type="password" name="password" placeholder="Password"><br>
-                        </div>
-                        <div class="form-field-group">
-                            <input class="agrees" type="checkbox" name="agree" value="agrees">I agree to <a href="/path/to/tos">Terms of Service</a><br>
-                        </div>
-                        <div class="form-field-group">
-                            <button type="submit" class="button button-rounded button-primary"/>Sign me up!</button> <span>or</span> <a href="/login">Log in</a>
-                        </div>
-                    </form>
+                    <div class="c4 a4 b4">
+
+                        <form action="/register" method="POST" class="form">
+                            <h2>SIGN UP</h2>
+                            <div class="form-field-group">
+                                <input class="fullname clearfix" type="text" name="fullname" placeholder="Full name"><br>
+                            </div>
+                            <div class="form-field-group">
+                                <input class="email clearfix" type="email" name="email" placeholder="Email"><br>
+                            </div>
+                            <div class="form-field-group">
+                                <input class="password clearfix" type="password" name="password" placeholder="Password"><br>
+                            </div>
+                            <div class="form-field-group">
+                                <input class="agrees" type="checkbox" name="agree" value="agrees">I agree to <a href="/path/to/tos">Terms of Service</a><br>
+                            </div>
+                            <div class="form-field-group">
+                                <button type="submit" class="button button-large  button-rounded button-flat-primary"/>Sign me up!</button>
+                            </div>
+                        </form>
+
+                        <a class="button button-block button-border-light button-rounded" href="/login">Already a member? Login.</a>
+                    </div>
                 </div>
             </section>
         </div>
