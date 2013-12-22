@@ -1,11 +1,22 @@
 <% include header %>
-<body>
-    <div class="container">
-        <a class="button button-primary button-rounded" href="/">Home</a>
-        <a class="button button-action button-rounded" href="/login">Login</a>
-        <a class="button button-action button-rounded" href="/register">Register</a>
-    </div>
+    <% include alert %>
 
-<h1>THIS IS NOT YET IMPLEMENTED!!!<h1>
+    <div class="grid-fluid">
+        <form action="javascript:void(0)" method="POST" id="sign-up-form" class="c4 a4 b4 form">
+            <h2>Reset Password</h2>
+            <div class="form-field-group">
+                <input class="password form-field clearfix" type="password" name="current_password" placeholder="Current Password">
+            </div>
+            <div class="form-field-group">
+                <input class="password form-field clearfix" type="password" name="new_password" placeholder="New Password">
+            </div>
+            <div class="form-field-group">
+                <input class="password form-field clearfix" type="password" name="confirm_new_password" placeholder="Confirm New Password">
+            </div>
+            <div class="form-field-group">
+                <button type="submit" class="button button-rounded button-primary"/>Update Password</button>
+            </div>
+        </form>
+    </div>
 
 <% include footer %>

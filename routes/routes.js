@@ -104,7 +104,9 @@ module.exports = function (app, passport) {
 
     app.get('/reset/:id', function(req, res) {
         console.log("GOT IN /reset/:id...");
-        var token = req.params.id;
+        var token = req.params.id,
+            messages = flash(null, null);
+
         if (!token) {
             console.log("Issue getting reset :id");
             //TODO: Error response...
@@ -115,7 +117,7 @@ module.exports = function (app, passport) {
             //1. find user with reset_token == token .. no match THEN error
             //2. check now.getTime() < reset_link_expires_millis
             //3. if not expired, present reset password page/form
-            res.render('resetpass');
+            res.render('resetpass', messages);
         }
     });
 };

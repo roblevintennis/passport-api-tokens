@@ -85,7 +85,7 @@ Account.statics.generateResetToken = function(email, cb) {
     this.findUserByEmailOnly(email, function(err, user) {
         if (err) {
             cb(err, null);
-        } else {
+        } else if (user) {
             //Generate reset token and URL link; also, create expiry for reset token
             user.reset_token = require('crypto').randomBytes(32).toString('hex');
             var now = new Date();
@@ -93,6 +93,9 @@ Account.statics.generateResetToken = function(email, cb) {
             user.reset_token_expires_millis = expires;
             user.save();
             cb(false, user);
+        } else {
+            //TODO: This is not really robust and we should probably return an error code or something here
+            cb(new Error('No user with that email found.'), null);
         }
     });
 };
