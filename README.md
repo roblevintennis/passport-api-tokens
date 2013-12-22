@@ -10,7 +10,13 @@ Install
     npm install
     git submodule init && git submodule update
     npm install -g mongodb
-    mongod #start up mongodb (do this in another terminal tab)
+
+Run
+===
+
+You need to fire up mongodb in another tab and then start the node server:
+
+    mongod #in another terminal tab
     node app
     open http://localhost:1337/
     Go to Register. Create user.
