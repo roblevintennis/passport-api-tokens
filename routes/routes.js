@@ -1,36 +1,79 @@
-var path = require('path'),
-    config = require(path.join(__dirname, '..', '/config/config.js')),
-    Account = require(path.join(__dirname, '..', '/models/account')),
-    flash = require(path.join(__dirname, '..', '/include/utils')).flash;
+'use strict';
+
+var path = require('path');
+var config = require(path.join(__dirname, '..', '/config/config.js'));
+var Account = require(path.join(__dirname, '..', '/models/account'));
+var flash = require(path.join(__dirname, '..', '/include/utils')).flash;
+
+/**
+* @module Routes
+*/
 
 module.exports = function (app, passport) {
+
+    /**
+    * Default route for app, currently displays signup form.
+    *
+    * @param {Object} req the request object
+    * @param {Object} res the response object
+    */
 
     app.get('/', function (req, res) {
         res.render('register', {info: null, err: null});
     });
 
+
+    /**
+    * Post method to register a new user
+    *
+    * @param {Object} req the request object
+    * @param {Object} res the response object
+    */
+
     app.post('/register', function(req, res) {
-        // console.log(req.body);
-        Account.register(new Account({ full_name: req.body.fullname, email: req.body.email}), req.body.password, function(err, account) {
-            if (err) {
-                if (err.name === 'BadRequestError' && err.message && err.message.indexOf('exists') > -1) {
-                    return res.render("register", flash(null, "Sorry. That email already exists. Try again."));
-                } else if (err.name === 'BadRequestError' && err.message && err.message.indexOf('argument not set')) {
-                    return res.render("register", flash (null, "It looks like you're missing a required argument. Try again."));
-                } else {
-                    return res.render("register", flash(null, "Sorry. There was an error processing your request. Please try again or contact technical support."));
+        var name = req.body.fullname;
+        var email = req.body.email;
+        var password = req.body.password;
+        var user = new Account({full_name: name,email: email});
+        var message;
+
+
+        Account.register(user, password, function(error, account) {
+            if (error) {
+                if (error.name === 'BadRequesterroror' && error.message && error.message.indexOf('exists') > -1) {
+                    message = flash(null, 'Sorry. That email already exists. Try again.');
                 }
+                else if (error.name === 'BadRequesterroror' && error.message && error.message.indexOf('argument not set')) {
+                    message =  flash (null, 'It looks like you\'re missing a required argument. Try again.');
+                }
+                else {
+                    message = flash(null, 'Sorry. There was an error processing your request. Please try again or contact technical support.');
+                }
+
+                res.render('register', message);
             }
-            //Successfully registered user
-            res.redirect('login?registered=1');
+            else {
+                //Successfully registered user
+                res.redirect('login?registered=1');
+            }
         });
     });
 
+
+    /**
+    * Login method
+    *
+    * @param {Object} req the request object
+    * @param {Object} res the response object
+    */
+
     app.get('/login', function(req, res) {
         var messages = flash(null, null);
-        if (req.param("registered") === '1') {
-            messages = flash("Congratulations, your account was created!", null);
+
+        if (req.param('registered') === '1') {
+            messages = flash('Congratulations, your account was created!', null);
         }
+
         res.render('login', messages);
     });
 
@@ -52,7 +95,7 @@ module.exports = function (app, passport) {
 
     app.get('/apitest/', function(req, res) {
         var incomingToken = req.headers.token;
-        console.log("incomingToken: " + incomingToken);
+        console.log('incomingToken: ' + incomingToken);
         var decoded = Account.decode(incomingToken);
         //Now do a lookup on that email in mongodb ... if exists it's a real user
         if (decoded && decoded.email) {
@@ -71,7 +114,7 @@ module.exports = function (app, passport) {
                 }
             });
         } else {
-            console.log("Whoa! Couldn't even decode incoming token!");
+            console.log('Whoa! Couldn\'t even decode incoming token!');
             res.json({error: 'Issue decoding incoming token.'});
         }
     });
@@ -103,15 +146,16 @@ module.exports = function (app, passport) {
     });
 
     app.get('/reset/:id', function(req, res) {
-        console.log("GOT IN /reset/:id...");
+        console.log('GOT IN /reset/:id...');
         var token = req.params.id,
             messages = flash(null, null);
 
         if (!token) {
-            console.log("Issue getting reset :id");
+            console.log('Issue getting reset :id');
             //TODO: Error response...
-        } else {
-            console.log("In ELSE ... good to go.")
+        }
+        else {
+            console.log('In ELSE ... good to go.');
             //TODO
             //
             //1. find user with reset_token == token .. no match THEN error
