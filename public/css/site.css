@@ -27,3 +27,63 @@ body {
   padding: 14px 24px;
   margin: 80px 0px 40px 0px;
 }
+
+/* line 32, ../scss/site.scss */
+.masthead {
+  margin-top: 25px;
+}
+
+/* line 36, ../scss/site.scss */
+.masthead, .plans {
+  text-align: center;
+}
+
+/* line 40, ../scss/site.scss */
+.plan {
+  position: relative;
+  background: #FFF;
+  padding: 15px;
+  min-height: 350px;
+  margin: 25px 0;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+}
+/* line 43, ../scss/site.scss */
+.plan .name h2 {
+  margin-bottom: 0;
+}
+/* line 44, ../scss/site.scss */
+.plan .name h3 {
+  margin-top: 0;
+}
+/* line 46, ../scss/site.scss */
+.plan em {
+  font-weight: bold;
+  color: #444;
+}
+/* line 50, ../scss/site.scss */
+.plan ul {
+  list-style: none;
+}
+/* line 52, ../scss/site.scss */
+.plan ul li {
+  float: left;
+  clear: both;
+}
+/* line 61, ../scss/site.scss */
+.plan.recommended {
+  min-height: 400px;
+  position: relative;
+  top: -25px;
+  background: #ebebeb;
+  border: 4px solid #e0e0e0;
+}
+/* line 70, ../scss/site.scss */
+.plan a {
+  position: absolute;
+  bottom: 20px;
+  left: 28px;
+}

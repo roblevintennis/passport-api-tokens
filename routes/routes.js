@@ -22,6 +22,9 @@ module.exports = function (app, passport) {
         res.render('register', {info: null, err: null});
     });
 
+    app.get('/pricing', function (req, res) {
+        res.render('pricing', {info: null, err: null});
+    })
 
     /**
     * Post method to register a new user
