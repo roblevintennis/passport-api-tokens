@@ -37,29 +37,23 @@ body {
     text-align: center;
 }
 
+.masthead {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 25px;
+    @include box-shadow(#888 2px 2px 5px);
+}
 .plan {
-    ////////////// PLAN NAME ///////////////
-    .name {
-        h2 {margin-bottom: 0; }
-        h3 {margin-top: 0; }
-    }
-    em {
-        font-weight: bold;
-        color: #444;
-    }
-    ul {
-        list-style: none;
-        li {
-            float: left;
-            clear: both;
-        }
-    }
     position: relative;
     background: #FFF;
     padding: 15px;
-    min-height: 350px;
+    min-height: 275px;
+    @include box-shadow(#888 2px 2px 5px);
+
+    /////// RECOMMENDED IS 50px TALLER ///////
     &.recommended {
-        min-height: 400px;
+        min-height: 325px;
         position: relative;
         top: -25px;
         background: darken(#FFF, 8%);
@@ -67,9 +61,56 @@ body {
     }
     margin: 25px 0;
     @include border-radius(4px);
-    a {
+
+    ////// CENTER BOTTOM BUTTON //////
+    .plan-button {
         position: absolute;
         bottom: 20px;
-        left: 28px;
+        left: 0;
+        width: 100%;
+        a {
+            width: 60%;
+            margin: 0px auto;
+        }
+    }
+
+//TODO: Properly define all colors used here in options partial
+    &:first-child .name {
+        background-color: #FDEDD0;
+    }
+    &:last-child .name {
+        background-color: lighten(#FD795B, 7%);
+    }
+    .name {
+        background-color: lighten(#BCF1ED, 3%);
+        @include border-radius(4px 4px 0px 0px);
+        h2 {margin-bottom: 0; }
+        h3 {margin-top: 0; }
+        .price {
+            //TODO: Properly defined in options partial
+            color: #777;
+            font-weight: normal;
+        }
+    }
+    em {
+        font-weight: bold;
+        color: #444;
+    }
+    ul {
+        padding-top: 1.2em;
+        padding-bottom: 1em;
+        text-align: left;
+        padding-left: 5%%;
+        color: #666666;
+        list-style: none;
+        .value {
+            text-align: center;
+            font-weight: bold;
+            margin-right: 6px;
+        }
+        li {
+            float: left;
+            clear: both;
+        }
     }
 }

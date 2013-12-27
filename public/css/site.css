@@ -39,11 +39,25 @@ body {
 }
 
 /* line 40, ../scss/site.scss */
+.masthead {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 4px;
+  margin-bottom: 25px;
+  -webkit-box-shadow: #888888 2px 2px 5px;
+  -moz-box-shadow: #888888 2px 2px 5px;
+  box-shadow: #888888 2px 2px 5px;
+}
+
+/* line 47, ../scss/site.scss */
 .plan {
   position: relative;
   background: #FFF;
   padding: 15px;
-  min-height: 350px;
+  min-height: 275px;
+  -webkit-box-shadow: #888888 2px 2px 5px;
+  -moz-box-shadow: #888888 2px 2px 5px;
+  box-shadow: #888888 2px 2px 5px;
   margin: 25px 0;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -51,39 +65,78 @@ body {
   -o-border-radius: 4px;
   border-radius: 4px;
 }
-/* line 43, ../scss/site.scss */
-.plan .name h2 {
-  margin-bottom: 0;
-}
-/* line 44, ../scss/site.scss */
-.plan .name h3 {
-  margin-top: 0;
-}
-/* line 46, ../scss/site.scss */
-.plan em {
-  font-weight: bold;
-  color: #444;
-}
-/* line 50, ../scss/site.scss */
-.plan ul {
-  list-style: none;
-}
-/* line 52, ../scss/site.scss */
-.plan ul li {
-  float: left;
-  clear: both;
-}
-/* line 61, ../scss/site.scss */
+/* line 55, ../scss/site.scss */
 .plan.recommended {
-  min-height: 400px;
+  min-height: 325px;
   position: relative;
   top: -25px;
   background: #ebebeb;
   border: 4px solid #e0e0e0;
 }
-/* line 70, ../scss/site.scss */
-.plan a {
+/* line 66, ../scss/site.scss */
+.plan .plan-button {
   position: absolute;
   bottom: 20px;
-  left: 28px;
+  left: 0;
+  width: 100%;
+}
+/* line 71, ../scss/site.scss */
+.plan .plan-button a {
+  width: 60%;
+  margin: 0px auto;
+}
+/* line 78, ../scss/site.scss */
+.plan:first-child .name {
+  background-color: #FDEDD0;
+}
+/* line 81, ../scss/site.scss */
+.plan:last-child .name {
+  background-color: #fd967e;
+}
+/* line 84, ../scss/site.scss */
+.plan .name {
+  background-color: #c9f4f0;
+  -webkit-border-radius: 4px 4px 0px 0px;
+  -moz-border-radius: 4px 4px 0px 0px;
+  -ms-border-radius: 4px 4px 0px 0px;
+  -o-border-radius: 4px 4px 0px 0px;
+  border-radius: 4px 4px 0px 0px;
+}
+/* line 87, ../scss/site.scss */
+.plan .name h2 {
+  margin-bottom: 0;
+}
+/* line 88, ../scss/site.scss */
+.plan .name h3 {
+  margin-top: 0;
+}
+/* line 89, ../scss/site.scss */
+.plan .name .price {
+  color: #777;
+  font-weight: normal;
+}
+/* line 95, ../scss/site.scss */
+.plan em {
+  font-weight: bold;
+  color: #444;
+}
+/* line 99, ../scss/site.scss */
+.plan ul {
+  padding-top: 1.2em;
+  padding-bottom: 1em;
+  text-align: left;
+  padding-left: 5%%;
+  color: #666666;
+  list-style: none;
+}
+/* line 106, ../scss/site.scss */
+.plan ul .value {
+  text-align: center;
+  font-weight: bold;
+  margin-right: 6px;
+}
+/* line 111, ../scss/site.scss */
+.plan ul li {
+  float: left;
+  clear: both;
 }
