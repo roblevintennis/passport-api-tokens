@@ -1,4 +1,4 @@
-/* line 7, ../scss/site.scss */
+/* line 8, ../scss/site.scss */
 body {
   background: url(../images/alps-blur.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
@@ -9,21 +9,25 @@ body {
   padding: 0px;
 }
 
-/* line 17, ../scss/site.scss */
+/* line 18, ../scss/site.scss */
 .success {
   color: green;
 }
 
-/* line 18, ../scss/site.scss */
+/* line 19, ../scss/site.scss */
 .error {
   color: red;
 }
 
-/* line 20, ../scss/site.scss */
+/* line 21, ../scss/site.scss */
 .form {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
   opacity: 0.9;
   background: #FFF;
   padding: 14px 24px;
   margin: 80px 0px 40px 0px;
+}
+/* line 27, ../scss/site.scss */
+.form .testToken {
+  color: #333333;
 }

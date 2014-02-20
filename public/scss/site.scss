@@ -4,6 +4,7 @@
 //////////////////////////////////////////////////////////
 // GENERAL ///////////////////////////////////////////////
 //////////////////////////////////////////////////////////
+$black: #333;
 body {
     background: url(../images/alps-blur.jpg) no-repeat center center fixed;
     -webkit-background-size: cover;
@@ -23,4 +24,5 @@ body {
     padding: 14px 24px;
     margin: 80px 0px 40px 0px;
 
+    .testToken { color: $black; }
 }

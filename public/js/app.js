@@ -17,7 +17,7 @@ $('document').ready(function() {
             return this.user;
         },
         getToken: function() {
-            return this.getUser().token;
+            return this.user ? this.getUser().token : null;
         }
     };
 
@@ -46,19 +46,21 @@ $('document').ready(function() {
     /////////////////////////////////////////////////////////////////
     $('.testToken').on("click", function(e) {
         var token = Store.getToken();
-        $.ajax({
-            type: "GET",
-            cache: false,
-            dataType: "json",
-            url: "/apitest/",
-            headers: {
-                token: token
-            },
-            success: function(data) {
-                console.log(data.user);
-                $('.flash.success').text("Token callback worked! Check console").show().fadeOut(3000);
-            }
-        });
+        if (token) {
+            $.ajax({
+                type: "GET",
+                cache: false,
+                dataType: "json",
+                url: "/apitest/",
+                headers: {
+                    token: token
+                },
+                success: function(data) {
+                    console.log(data.user);
+                    $('.flash.success').text("Token callback worked! Check console").show().fadeOut(3000);
+                }
+            });
+        }
     });
 
 });
