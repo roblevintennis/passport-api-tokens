@@ -108,7 +108,8 @@ module.exports = function (app, passport) {
                         user: {
                             email: user.email,
                             full_name: user.full_name,
-                            token: user.token.token
+                            token: user.token.token,
+                            message: "This is just a simulation of an API endpoint; and we wouldn't normally return the token in the http response...doing so for test purposes only :)"
                         }
                     });
                 }
