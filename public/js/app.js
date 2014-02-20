@@ -41,6 +41,25 @@ $('document').ready(function() {
         });
     });
 
+
+
+    /////////////////////////////////////////////////////////////////
+    // LOGOUT ///////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////
+    $('.logout').on("click", function(e) {
+        $.ajax({
+            type: "GET",
+            cache: false,
+            // dataType: "json",
+            url: "/logout/"
+            // success: function(data) {
+            //     // Store.setUser({email: email, token: data.token});
+            //     // console.log("Finished setting user: " + email + ", Token: " + data.token);
+            //     $('.flash.success').text("You're now logged out.").show().fadeOut(3000);
+            // }
+        });
+    });
+
     /////////////////////////////////////////////////////////////////
     // SIMULATE API REQUEST /////////////////////////////////////////
     /////////////////////////////////////////////////////////////////

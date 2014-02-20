@@ -27,7 +27,7 @@ body {
   padding: 14px 24px;
   margin: 80px 0px 40px 0px;
 }
-/* line 27, ../scss/site.scss */
-.form .testToken {
+/* line 26, ../scss/site.scss */
+.form .testToken, .form .logout {
   color: #333333;
 }

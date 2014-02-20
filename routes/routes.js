@@ -120,7 +120,10 @@ module.exports = function (app, passport) {
         }
     });
     app.get('/logout', function(req, res) {
+        // See (we're not using sessions): http://passportjs.org/guide/logout/
+        var messages = flash('Logged out', null);
         req.logout();
+        console.log("req.logout completed...redirecting to '/'");
         res.redirect('/');
     });
 
