@@ -11,6 +11,22 @@ var flash = require(path.join(__dirname, '..', '/include/utils')).flash;
 
 module.exports = function (app, passport) {
 
+
+    //TODO Move to proper middleware
+//     var verifyAuthenticated = function(req, res, next) {
+// // console.log("IS Authenticated: ");
+// // console.log(req.isAuthenticated());
+// // console.log("req._passport.instance._userProperty: ");
+// // console.dir(req._passport.instance);
+//         var isAuthenticated = passport.authenticate('local', {session: false});
+//         if (isAuthenticated) {
+//             console.log("IS Authenticated!")
+//         // if (req.isAuthenticated()) {
+//             return next();
+//         }
+//         console.log("NOT Authenticated!")
+//         res.send(401);
+//     }
     /**
     * Default route for app, currently displays signup form.
     *
@@ -79,6 +95,14 @@ module.exports = function (app, passport) {
 
     app.post('/token/', passport.authenticate('local', {session: false}), function(req, res) {
         if (req.user) {
+
+// console.log("req.user: ");
+// console.dir(req.user);
+// console.log("req._passport.instance._userProperty: ");
+// console.dir(req._passport.instance);
+
+
+
             Account.createUserToken(req.user.email, function(err, usersToken) {
                 // console.log('token generated: ' +usersToken);
                 // console.log(err);
@@ -119,12 +143,30 @@ module.exports = function (app, passport) {
             res.json({error: 'Issue decoding incoming token.'});
         }
     });
-    app.get('/logout', function(req, res) {
-        // See (we're not using sessions): http://passportjs.org/guide/logout/
+    app.get('/logout(\\?)?', function(req, res) {
         var messages = flash('Logged out', null);
-        req.logout();
-        console.log("req.logout completed...redirecting to '/'");
-        res.redirect('/');
+        var incomingToken = req.headers.token;
+        console.log('LOGOUT: incomingToken: ' + incomingToken);
+        if (incomingToken) {
+            var decoded = Account.decode(incomingToken);
+            if (decoded && decoded.email) {
+                console.log("past first check...invalidating next...")
+                Account.invalidateUserToken(decoded.email, function(err, user) {
+                    console.log('Err: ', err);
+                    console.log('user: ', user);
+                    if (err) {
+                        console.log(err);
+                        res.json({error: 'Issue finding user (in unsuccessful attempt to invalidate token).'});
+                    } else {
+                        console.log("sending 200")
+                        res.json({message: 'logged out'});
+                    }
+                });
+            } else {
+                console.log('Whoa! Couldn\'t even decode incoming token!');
+                res.json({error: 'Issue decoding incoming token.'});
+            }
+        }
     });
 
     app.get('/forgot', function(req, res) {

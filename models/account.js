@@ -42,10 +42,10 @@ Account.statics.findUser = function(email, token, cb) {
     this.findOne({email: email}, function(err, usr) {
         if(err || !usr) {
             cb(err, null);
-        } else if (token === usr.token.token) {
+        } else if (usr.token && usr.token.token && token === usr.token.token) {
             cb(false, {email: usr.email, token: usr.token, date_created: usr.date_created, full_name: usr.full_name});
         } else {
-            cb(new Error('Token does not match.'), null);
+            cb(new Error('Token does not exist or does not match.'), null);
         }
     });
 };
@@ -80,6 +80,22 @@ Account.statics.createUserToken = function(email, cb) {
     });
 };
 
+Account.statics.invalidateUserToken = function(email, cb) {
+    var self = this;
+    this.findOne({email: email}, function(err, usr) {
+        if(err || !usr) {
+            console.log('err');
+        }
+        usr.token = null;
+        usr.save(function(err, usr) {
+            if (err) {
+                cb(err, null);
+            } else {
+                cb(false, 'removed');
+            }
+        });
+    });
+};
 Account.statics.generateResetToken = function(email, cb) {
     console.log("in generateResetToken....");
     this.findUserByEmailOnly(email, function(err, user) {

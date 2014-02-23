@@ -1,13 +1,5 @@
 $('document').ready(function() {
 
-    //Hack: Flash info/errors
-    var message = $('.flash');
-    if (message.length) {
-        setTimeout( function() {
-            message.fadeOut('slow');
-        }, 3000);
-    }
-
     window.Store = {
         user: null,
         setUser: function(user) {
@@ -18,6 +10,9 @@ $('document').ready(function() {
         },
         getToken: function() {
             return this.user ? this.getUser().token : null;
+        },
+        removeUser: function() {
+            delete this.user;
         }
     };
 
@@ -36,7 +31,10 @@ $('document').ready(function() {
             success: function(data){
                 Store.setUser({email: email, token: data.token});
                 console.log("Finished setting user: " + email + ", Token: " + data.token);
-                $('.flash.success').text("You're now logged in. Try clicking the 'Test Token' button next.").show().fadeOut(3000);
+                alert("You're now logged in. Try clicking the 'Test Token' button next.");
+            },
+            error: function(data) {
+                alert(data.statusText);
             }
         });
     });
@@ -47,17 +45,30 @@ $('document').ready(function() {
     // LOGOUT ///////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////
     $('.logout').on("click", function(e) {
-        $.ajax({
-            type: "GET",
-            cache: false,
-            // dataType: "json",
-            url: "/logout/"
-            // success: function(data) {
-            //     // Store.setUser({email: email, token: data.token});
-            //     // console.log("Finished setting user: " + email + ", Token: " + data.token);
-            //     $('.flash.success').text("You're now logged out.").show().fadeOut(3000);
-            // }
-        });
+
+        var token = Store.getToken();
+        Store.removeUser();
+        if (token) {
+            $.ajax({
+                type: "GET",
+                cache: false,
+                dataType: "json",
+                url: "/logout",
+                headers: {
+                    token: token
+                },
+                success: function(data) {
+                    console.log(data);
+                    if (data.error) {
+                        alert("Issue logging out.");
+                    } else {
+                        alert("You're now logged out.");
+                    }
+                }
+            });
+        } else {
+            alert("No token");
+        }
     });
 
     /////////////////////////////////////////////////////////////////
@@ -76,9 +87,11 @@ $('document').ready(function() {
                 },
                 success: function(data) {
                     console.log(data.user);
-                    $('.flash.success').text("Token callback worked! Check console").show().fadeOut(3000);
+                    alert("Token callback worked! Check console");
                 }
             });
+        } else {
+            alert("No token");
         }
     });
 
