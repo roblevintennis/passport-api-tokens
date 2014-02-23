@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
     path = require('path'),
     config = require(path.join(__dirname, '..', '/config/config.js')),
     passportLocalMongoose = require('passport-local-mongoose'),
-    crypto = require('crypto');
+    crypto = require('crypto'),
     jwt = require('jwt-simple'),
     tokenSecret = 'put-a-$Ecr3t-h3re';
 
@@ -37,6 +37,7 @@ Account.statics.encode = function(data) {
 Account.statics.decode = function(data) {
     return jwt.decode(data, tokenSecret);
 };
+
 Account.statics.findUser = function(email, token, cb) {
     var self = this;
     this.findOne({email: email}, function(err, usr) {

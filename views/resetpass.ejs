@@ -1,9 +1,8 @@
 <% include header %>
-    <% include alert %>
-
     <div class="grid-fluid">
-        <form action="javascript:void(0)" method="POST" id="sign-up-form" class="c4 a4 b4 form">
+        <form action="javascript:void(0)" method="POST" class="c4 a4 b4 form">
             <h2>Reset Password</h2>
+            <input class="email" type="hidden" name="email" value="<%= email %>">
             <div class="form-field-group">
                 <input class="password form-field clearfix" type="password" name="current_password" placeholder="Current Password">
             </div>
@@ -14,7 +13,7 @@
                 <input class="password form-field clearfix" type="password" name="confirm_new_password" placeholder="Confirm New Password">
             </div>
             <div class="form-field-group">
-                <button type="submit" class="button button-rounded button-primary"/>Update Password</button>
+                <button type="submit" id="resetPassword" class="button button-rounded button-primary"/>Update Password</button>
             </div>
         </form>
     </div>

@@ -95,14 +95,6 @@ module.exports = function (app, passport) {
 
     app.post('/token/', passport.authenticate('local', {session: false}), function(req, res) {
         if (req.user) {
-
-// console.log("req.user: ");
-// console.dir(req.user);
-// console.log("req._passport.instance._userProperty: ");
-// console.dir(req._passport.instance);
-
-
-
             Account.createUserToken(req.user.email, function(err, usersToken) {
                 // console.log('token generated: ' +usersToken);
                 // console.log(err);
@@ -180,7 +172,7 @@ module.exports = function (app, passport) {
                 res.json({error: 'Issue finding user.'});
             } else {
                 var token = user.reset_token;
-                var resetLink = 'http://localhost:1337/reset/'+ token;
+                var resetLink = 'http://localhost:1337/reset/'+ token + '/' + user.email ;
 
                 //TODO: This is all temporary hackish. When we have email configured
                 //properly, all this will be stuffed within that email instead :)
@@ -191,9 +183,10 @@ module.exports = function (app, passport) {
         });
     });
 
-    app.get('/reset/:id', function(req, res) {
+    app.get('/reset/:id/:email', function(req, res) {
         console.log('GOT IN /reset/:id...');
         var token = req.params.id,
+            email = req.params.email,
             messages = flash(null, null);
 
         if (!token) {
@@ -207,7 +200,62 @@ module.exports = function (app, passport) {
             //1. find user with reset_token == token .. no match THEN error
             //2. check now.getTime() < reset_link_expires_millis
             //3. if not expired, present reset password page/form
-            res.render('resetpass', messages);
+            res.render('resetpass', {email: email});
         }
     });
+
+
+    app.post('/reset/password', function(req, res) {
+        console.log("GOT IN")
+        var email = req.body.email;
+        var currentPassword = req.body.current_password;
+        var newPassword = req.body.new_password;
+        var confirmationPassword = req.body.confirm_new_password;
+        // console.log("email: ", email);
+        // console.log("currentPassword: ", currentPassword);
+        // console.log("newPassword: ", newPassword);
+        // console.log("confirmationPassword: ", confirmationPassword);
+
+        if (email && currentPassword && newPassword && confirmationPassword && (newPassword === confirmationPassword)) {
+
+            Account.findUserByEmailOnly(email, function(err, user) {
+                if (err) {
+                    console.log("error: ", err);
+                    res.json({err: 'Issue while finding user.'});
+                } else if (!user) {
+                    console.log("Unknown user");
+                    res.json({err: 'Unknown user email: ' + email});
+                } else if (user) {
+                    console.log("FOUND USER .. now going call Account.authenticate...");
+                    Account.authenticate()(email, currentPassword, function (err, isMatch, options) {
+                        if (err) {
+                            console.log("error: ", err);
+                            res.json({err: 'Error while verifying current password.'});
+                        } else if (!isMatch) {
+                            res.json({err: 'Current password does not match'});
+                        } else {
+                            user.setPassword(newPassword, function(err, user) {
+                                if (err) {
+                                    console.log("error: ", err);
+                                    res.json({err: 'Issue while setting new password.'});
+                                }
+                                user.save(function(err, usr) {
+                                    if (err) {
+                                        cb(err, null);
+                                    } else {
+                                        //TODO, client will redirect to Login page (they won't have a current token)
+                                        res.json({message: 'Password updated.'});
+                                    }
+                                });
+                            });
+                        }
+                    });
+                }
+            });
+        } else {
+            //TODO Better error message,etc.
+            res.json({error: 'Missing email, current, new, or confirmation password, OR, the confirmation does not match.'});
+        }
+    });
+
 };
