@@ -12,9 +12,10 @@ var Token = new Schema({
     token: {type: String},
     date_created: {type: Date, default: Date.now},
 });
-Token.methods.hasExpired= function(){
+Token.statics.hasExpired= function(created) {
     var now = new Date();
-    return (now.getTime() - this.date_created.getTime()) > config.ttl;
+    var diff = (now.getTime() - created);
+    return diff > config.ttl;
 };
 var TokenModel = mongoose.model('Token', Token);
 
@@ -118,3 +119,4 @@ Account.statics.generateResetToken = function(email, cb) {
 };
 
 module.exports = mongoose.model('Account', Account);
+module.exports.Token = TokenModel;

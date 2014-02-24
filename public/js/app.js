@@ -110,8 +110,12 @@ $('document').ready(function() {
                     token: token
                 },
                 success: function(data) {
-                    console.log(data.user);
-                    alert("Token callback worked! Check console");
+                    if (data.error) {
+                        alert("Error: " + data.error);
+                    } else {
+                        console.log(data.user);
+                        alert("Token callback worked! Check console");
+                    }
                 }
             });
         } else {

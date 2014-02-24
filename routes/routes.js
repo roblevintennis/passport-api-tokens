@@ -3,6 +3,7 @@
 var path = require('path');
 var config = require(path.join(__dirname, '..', '/config/config.js'));
 var Account = require(path.join(__dirname, '..', '/models/account'));
+var Token = require(path.join(__dirname, '..', '/models/account')).Token;
 var flash = require(path.join(__dirname, '..', '/include/utils')).flash;
 
 /**
@@ -10,30 +11,12 @@ var flash = require(path.join(__dirname, '..', '/include/utils')).flash;
 */
 
 module.exports = function (app, passport) {
-
-
-    //TODO Move to proper middleware
-//     var verifyAuthenticated = function(req, res, next) {
-// // console.log("IS Authenticated: ");
-// // console.log(req.isAuthenticated());
-// // console.log("req._passport.instance._userProperty: ");
-// // console.dir(req._passport.instance);
-//         var isAuthenticated = passport.authenticate('local', {session: false});
-//         if (isAuthenticated) {
-//             console.log("IS Authenticated!")
-//         // if (req.isAuthenticated()) {
-//             return next();
-//         }
-//         console.log("NOT Authenticated!")
-//         res.send(401);
-//     }
     /**
     * Default route for app, currently displays signup form.
     *
     * @param {Object} req the request object
     * @param {Object} res the response object
     */
-
     app.get('/', function (req, res) {
         res.render('register', {info: null, err: null});
     });
@@ -45,14 +28,12 @@ module.exports = function (app, passport) {
     * @param {Object} req the request object
     * @param {Object} res the response object
     */
-
     app.post('/register', function(req, res) {
         var name = req.body.fullname;
         var email = req.body.email;
         var password = req.body.password;
         var user = new Account({full_name: name,email: email});
         var message;
-
 
         Account.register(user, password, function(error, account) {
             if (error) {
@@ -75,14 +56,12 @@ module.exports = function (app, passport) {
         });
     });
 
-
     /**
     * Login method
     *
     * @param {Object} req the request object
     * @param {Object} res the response object
     */
-
     app.get('/login', function(req, res) {
         var messages = flash(null, null);
 
@@ -120,14 +99,19 @@ module.exports = function (app, passport) {
                     console.log(err);
                     res.json({error: 'Issue finding user.'});
                 } else {
-                    res.json({
-                        user: {
-                            email: user.email,
-                            full_name: user.full_name,
-                            token: user.token.token,
-                            message: "This is just a simulation of an API endpoint; and we wouldn't normally return the token in the http response...doing so for test purposes only :)"
-                        }
-                    });
+                    if (Token.hasExpired(user.token.date_created)) {
+                        console.log("Token expired...TODO: Add renew token funcitionality.");
+                        res.json({error: 'Token expired. You need to log in again.'});
+                    } else {
+                        res.json({
+                            user: {
+                                email: user.email,
+                                full_name: user.full_name,
+                                token: user.token.token,
+                                message: "This is just a simulation of an API endpoint; and we wouldn't normally return the token in the http response...doing so for test purposes only :)"
+                            }
+                        });
+                    }
                 }
             });
         } else {
